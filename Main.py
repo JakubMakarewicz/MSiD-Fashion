@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -33,13 +35,40 @@ import matplotlib.pyplot as plt
 # plt.show()
 # pass
 from Data import ReadData
-from FeatureExtraction import FeatureExtractors
+from FeatureExtraction import FeatureExtractors, Gabor
 from Models import NaiveBayes
-
+import pandas as pd
+from sklearn.naive_bayes import GaussianNB
 if __name__ == '__main__':
+
+    # print(data_frame.set_index('Kernel Label').idxmax()[0])
+    df = pd.read_pickle("kernels tested")
+    print(df.set_index('Kernel Label').idxmax()[0])
     x_train, y_train = ReadData.load_mnist(path="Data")
     x_test, y_test = ReadData.load_mnist(path="Data", kind="t10k")
-    FeatureExtractors.feature_extraction(x_train, "sobel")
-    model = NaiveBayes.get_classifier(x_train, y_train)
-    accuracy = NaiveBayes.test_classifier(x_test, y_test, model)
-    print(accuracy)
+    df = Gabor.select_best_kernel(y_train, y_test, "./temp", np.array(Gabor.generate_filters())[:,1], GaussianNB)
+    # df.to_pickle("kernels tested")
+    # model = NaiveBayes.get_classifier(x_train, y_train)
+    # acc = NaiveBayes.test_classifier(x_test, y_test, model)
+    # x = FeatureExtractors.feature_extraction(x_train, "sobel")
+    # x2 = FeatureExtractors.feature_extraction(x_test, "sobel")
+    # model2 = NaiveBayes.get_classifier(x, y_train)
+    # acc2 = NaiveBayes.test_classifier(x2, y_test, model2)
+    #
+    # print(acc, acc2)
+    # filters = Gabor.generate_filters()
+    # print(len(filters))
+    # print("alleluyah")
+    # Gabor.multiprocess_perft_starter(6, filters, x_train, "train")
+    # Gabor.multiprocess_perft_starter(6, filters, x_test, "test")
+    # Gabor.apply_filters(x_train, filters, "train")
+    # Gabor.apply_filters(x_test, filters, "test")
+    # for i in range(4096):
+    #     xd = filtered_images[i]
+    #     path = os.path.join(os.curdir, "temp", f"{xd[1]}.png")
+    #     print(path)
+    #     print(cv2.imwrite(path, np.reshape(xd[0], (28,28))))
+    #
+    # filtered_images.to_pickle("filtered_x_train2.pkl")
+    # filtered_images2 = Gabor.apply_filters(x_test, filters[0::50])
+    # filtered_images2.to_pickle("filtered_x_test.pkl")

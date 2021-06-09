@@ -9,6 +9,6 @@ feature_extractors = {"prewitt_h": filters.prewitt_h,
 def feature_extraction(images, method):
     ret_array = []
     for image in images:
-        image = np.reshape(image, (28, 28))
+        # image = np.reshape(image, (28, 28))
         ret_array.append(feature_extractors[method](image))
     return ret_array

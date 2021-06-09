@@ -12,3 +12,4 @@ def test_classifier(x_test, y_test, model):
     y_pred = model.predict(x_test)
     accuracy = accuracy_score(y_test, y_pred)
     return accuracy
+
