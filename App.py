@@ -2,6 +2,7 @@ import os
 import pickle
 import sys
 from functools import partial
+
 os.environ['TF_CPP_MIN_VLOG_LEVEL'] = '3'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import cv2
@@ -175,7 +176,6 @@ if __name__ == '__main__':
 
             if feature_extractor in [2, 3, 4, 5]:
                 img = FeatureExtractors.feature_extraction([img], feature_extractors[feature_extractor])
-                img = FeatureExtractors.feature_extraction([img], feature_extractors[feature_extractor])
             elif feature_extractor == 6:
                 choice = int(input("Do you want to use the default kernel "
                                    "(ksize=3 sigma=5 theta=3.9269908169872414 lambda=0.7853981633974483 gamma=0.5 phi=0.4)?:\n"
@@ -192,18 +192,16 @@ if __name__ == '__main__':
                 else:
                     FeatureExtractors.initialize_kernel(True)
                 img = FeatureExtractors.feature_extraction([img], feature_extractors[feature_extractor])
-                img = FeatureExtractors.feature_extraction([img], feature_extractors[feature_extractor])
 
             if model_type in [1, 2]:
                 img = np.reshape(img, (-1, 784))
-                x_test = np.reshape(img, (-1, 784))
                 print(labels[model.predict(img)[0]])
             elif model_type == 3:
                 if feature_extractor == 1:
-                    x_train = np.array(img).astype('float32')
-                    x_train /= 255
+                    img = np.array(img).astype('float32')
+                    img /= 255
                 else:
                     img += 1
                     img /= 2
                 img = np.reshape(img, (-1, 28, 28, 1))
-                print(labels[model.predict(img)[0][0]])
+                print(labels[int(np.argmax(model.predict(img)))])
