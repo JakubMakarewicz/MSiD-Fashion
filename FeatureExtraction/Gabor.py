@@ -27,6 +27,7 @@ def generate_filters():
                                 kernels.append([kernel, gabor_label])
     return kernels
 
+
 #
 # def apply_filters(x, kernels):
 #     ret_frame = pd.DataFrame()
@@ -56,7 +57,15 @@ def apply_filters(x, kernel):
         filtered_images.append(cv2.filter2D(image, cv2.CV_8UC3, kernel))
     return filtered_images
 
-def worker(queue: multiprocessing.Queue, lock):
+
+def apply_filters_2d(x, kernel):
+    filtered_images = []
+    for j, image in enumerate(x):
+        filtered_images.append(cv2.filter2D(np.reshape(image, (28, 28)), cv2.CV_8UC3, kernel))
+    return filtered_images
+
+
+def worker(queue: multiprocessing.Queue, lock, destination_folder):
     """
     A function performed by a Process. It carries out the tasks until the queue is empty.
 
@@ -68,10 +77,8 @@ def worker(queue: multiprocessing.Queue, lock):
         current_task = queue.get()
         data, kernel, label = current_task[1]
         filtered_images = current_task[0](data, kernel[0])
-        lock.acquire()
         print(kernel[1])
-        np.savez_compressed(f"./temp/{label}_{kernel[1]}.npz", filtered_images)
-        lock.release()
+        np.savez_compressed(f"{destination_folder}/{label}_{kernel[1]}.npz", filtered_images)
 
 
 def add_starting_objects_to_queue(queue: multiprocessing.Queue, kernels, data, label):
@@ -83,10 +90,10 @@ def add_starting_objects_to_queue(queue: multiprocessing.Queue, kernels, data, l
     :param depth: a number that signifies how deep the search will be.
     """
     for kernel in kernels:
-        queue.put((apply_filters, (data, kernel, label)))
+        queue.put((apply_filters_2d, (data, kernel, label)))
 
 
-def multiprocess_perft_starter(number_of_processes: int, kernels, data, label):
+def multiprocess_perft_starter(number_of_processes: int, kernels, data, label, destination_folder='./temp2'):
     """
     Initializes all key components to perform a perft operation.
 
@@ -100,7 +107,7 @@ def multiprocess_perft_starter(number_of_processes: int, kernels, data, label):
     add_starting_objects_to_queue(queue, kernels, data, label)
     lock = multiprocessing.Lock()
     for i in range(number_of_processes):
-        process = multiprocessing.Process(target=worker, args=(queue, lock), name=f"Process {i}")
+        process = multiprocessing.Process(target=worker, args=(queue, lock, destination_folder), name=f"Process {i}")
         processes.append(process)
         process.start()
     for p in processes:
@@ -116,5 +123,12 @@ def select_best_kernel(y_train, y_test, folder_path, labels, model_constructor):
         model.fit(x_train, y_train)
         accuracy = accuracy_score(y_test, model.predict(x_test))
         data_frame = data_frame.append({"Kernel Label": label, "Accuracy": accuracy}, ignore_index=True)
-        print(label)
     return data_frame
+
+
+def get_kernel_parameters_from_label(label):
+    label = label.replace("\n", "")
+    params = label.split("_")
+    param_values = list(map((lambda x: float(x.split("=")[1].replace("-", "."))), params))
+    param_values = tuple([(int(param_values[0]), int(param_values[0]))] + param_values[1:])
+    return param_values
