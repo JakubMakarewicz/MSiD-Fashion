@@ -99,15 +99,15 @@ best gabor kernel:  ksize=3 sigma=5 theta=3.9269908169872414 lambda=0.7853981633
 
 ##### KNN and Naive Bayes
 
-Feature Extractor | KNN, k=3 | Naive Bayes
+Feature Extractor | KNN, k=3/vs Benchmark | Naive Bayes/vs Benchmark
 :------------- | :-------------:| :-------------:
-None |  0.8541 | 0.5856
-Prewitt_H | 0.8167 | 0.5999
-Prewitt_V | 0.8542 | 0.6619
-Prewitt | 0.8537 | 0.6318
-Canny | 0.8036 | 0.5535
-Sobel | 0.8625 | 0.6204
-Gabor | 0.8483 | 0.6886
+None |  0.8541/+0.007 | 0.5856/+0.02
+Prewitt_H | 0.8167/-0.03 | 0.5999/+0.036
+Prewitt_V | 0.8542/+0.007 | 0.6619/+0.098
+Prewitt | 0.8537/+0.067 | 0.6318/+0.068
+Canny | 0.8036/-0.043 | 0.5535/-0.011
+Sobel | 0.8625/+0.016 | 0.6204/+0.056
+Gabor | 0.8483/+0.001 | 0.6886/+0.125
 
 ##### Neural Neworks 
 
@@ -123,4 +123,5 @@ Model | Accuracy
 I have tried applying some gaussian noises onto the training data, however I have not been able to achieve any satisfying results, the accuracy of the models dropped to sub 90%.
 
 ## Usage
-To launch the app, just run app.py. However it is not completely functional.
+To launch the app, just run app.py. However may have some bugs. 
+
