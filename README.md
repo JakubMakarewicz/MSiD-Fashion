@@ -1,7 +1,7 @@
 # MSiD-Fashion
 
 ## Introduction
-The objective was to compare some algorithms at their ability to predict fashion-mnist data.
+The objective was to create and compare some algorithms at their ability to predict fashion-mnist data.
 
 ## Methods
 
