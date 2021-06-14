@@ -136,8 +136,7 @@ Model | Accuracy | Notes
 6 | 0.9286 | Augmented data: random cropping, flipping and rotating + normalization
 
 ## Usage
-#### Required Modules
-in requirements.txt
+#### Required Modules are listed in requirements.txt
 
-To launch the app, just run app.py. However may have some bugs. 
-
+To launch the app, just run app.py. However there may be some bugs. 
+Some trained models are available in release, just download and extract "TrainedModels.zip".
