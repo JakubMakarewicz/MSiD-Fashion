@@ -80,7 +80,7 @@ flatten_4 (Flatten)| (None, 176400)| 0
 dense_8 (Dense)| (None, 512)| 90317312  
 dense_9 (Dense)| (None, 10)| 5130
 
-### Results
+## Results
 I started off with finding the best gabor filter using naive bayes, here are the results:
 
 gabor kernel = ksize, sigma, theta, lambda, gamma, phi
