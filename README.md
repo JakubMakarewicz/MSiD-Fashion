@@ -120,4 +120,5 @@ dense_9 (Dense)| (None, 10)| 5130
 ##### Data Augmentation
 I've tried applying some gaussian noises onto the training data, however I have not been able to achieve any satisfying results, the accuracy of the models dropped to sub 90%.
 
-### To launch the app, just run app.py. However it is not completely functional.
+### App
+To launch the app, just run app.py. However it is not completely functional.
