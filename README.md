@@ -1,12 +1,9 @@
 # MSiD-Fashion
 
-### Introduction
+## Introduction
 The objective was to compare some algorithms at their ability to predict fashion-mnist data.
 
-### Algorithms
-- KNearestNeighbors
-- Naive Bayes
-- Convolutional Neural Networks
+## Methods
 
 ### Feature Extractors
 - prewitt
@@ -14,45 +11,11 @@ The objective was to compare some algorithms at their ability to predict fashion
 - sobel
 - gabor
 
-### Results
-I started off with trying to find the best gabor filter using naive bayes, here are the results:
 
-gabor kernel = ksize, sigma, theta, lambda, gamma, phi
-
-Gabor Kernel | accuracy 
-:-------------:| :-------------:
-3, 5, 3.92, 0.785, 0.5, 0.4 | 0.6886 
-3, 3, 3.927, 0.785, 0.5, 0.4 | 0.6886
-3, 5, 3.927, 0.785, 0.05, 0.4 | 0.6883
-3, 3, 3.927, 0.785, 0.05, 0.4 | 0.6883
-. | .
-3, 5, 1.5708, 2.3562, 0.5, 0.4 | 0.4633 
-3, 7, 1.5708, 2.3562, 0-05, 0-4 | 0.4607
-
-best gabor kernel:  ksize=3 sigma=5 theta=3.9269908169872414 lambda=0.7853981633974483 gamma=0.5 phi=0.4
-
-##### KNN and Naive Bayes
-
-Feature Extractor | KNN, k=3 | Naive Bayes
-:------------- | :-------------:| :-------------:
-None |  0.8541 | 0.5856
-Prewitt_H | 0.8167 | 0.5999
-Prewitt_V | 0.8542 | 0.6619
-Prewitt | 0.8537 | 0.6318
-Canny | 0.8036 | 0.5535
-Sobel | 0.8625 | 0.6204
-Gabor | 0.8483 | 0.6886
-
-##### Neural Neworks 
-
-Model | Accuracy
-:------------- | :-------------:
-1 | 0.8723
-2 | 0.9247
-3 | 0.9261
-4 | 0.9298
-5 | 0.9247
-
+### Models
+- KNearestNeighbors
+- Naive Bayes
+- Convolutional Neural Networks
 ##### Model previews:
 1: Total params: 523,330
 
@@ -117,8 +80,47 @@ flatten_4 (Flatten)| (None, 176400)| 0
 dense_8 (Dense)| (None, 512)| 90317312  
 dense_9 (Dense)| (None, 10)| 5130
 
-##### Data Augmentation
-I've tried applying some gaussian noises onto the training data, however I have not been able to achieve any satisfying results, the accuracy of the models dropped to sub 90%.
+### Results
+I started off with finding the best gabor filter using naive bayes, here are the results:
 
-### App
+gabor kernel = ksize, sigma, theta, lambda, gamma, phi
+
+Gabor Kernel | accuracy 
+:-------------:| :-------------:
+3, 5, 3.92, 0.785, 0.5, 0.4 | 0.6886 
+3, 3, 3.927, 0.785, 0.5, 0.4 | 0.6886
+3, 5, 3.927, 0.785, 0.05, 0.4 | 0.6883
+3, 3, 3.927, 0.785, 0.05, 0.4 | 0.6883
+. | .
+3, 5, 1.5708, 2.3562, 0.5, 0.4 | 0.4633 
+3, 7, 1.5708, 2.3562, 0-05, 0-4 | 0.4607
+
+best gabor kernel:  ksize=3 sigma=5 theta=3.9269908169872414 lambda=0.7853981633974483 gamma=0.5 phi=0.4
+
+##### KNN and Naive Bayes
+
+Feature Extractor | KNN, k=3 | Naive Bayes
+:------------- | :-------------:| :-------------:
+None |  0.8541 | 0.5856
+Prewitt_H | 0.8167 | 0.5999
+Prewitt_V | 0.8542 | 0.6619
+Prewitt | 0.8537 | 0.6318
+Canny | 0.8036 | 0.5535
+Sobel | 0.8625 | 0.6204
+Gabor | 0.8483 | 0.6886
+
+##### Neural Neworks 
+
+Model | Accuracy
+:------------- | :-------------:
+1 | 0.8723
+2 | 0.9247
+3 | 0.9261
+4 | 0.9298
+5 | 0.9247
+
+##### Data Augmentation
+I have tried applying some gaussian noises onto the training data, however I have not been able to achieve any satisfying results, the accuracy of the models dropped to sub 90%.
+
+## Usage
 To launch the app, just run app.py. However it is not completely functional.
