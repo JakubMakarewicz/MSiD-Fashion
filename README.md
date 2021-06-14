@@ -105,13 +105,13 @@ Gabor Kernel | accuracy
 3, 3, 3.927, 0.785, 0.5, 0.4 | 0.6886
 3, 5, 3.927, 0.785, 0.05, 0.4 | 0.6883
 3, 3, 3.927, 0.785, 0.05, 0.4 | 0.6883
-. | .
+: | :
 3, 5, 1.5708, 2.3562, 0.5, 0.4 | 0.4633 
 3, 7, 1.5708, 2.3562, 0-05, 0-4 | 0.4607
 
 best gabor kernel:  ksize=3 sigma=5 theta=3.9269908169872414 lambda=0.7853981633974483 gamma=0.5 phi=0.4
 
-##### KNN and Naive Bayes
+#### KNN and Naive Bayes
 
 Feature Extractor | KNN, k=3/vs Benchmark | Naive Bayes/vs Benchmark
 :------------- | :-------------:| :-------------:
@@ -123,7 +123,7 @@ Canny | 0.8036/-0.043 | 0.5535/-0.011
 Sobel | 0.8625/+0.016 | 0.6204/+0.056
 Gabor | 0.8483/+0.001 | 0.6886/+0.125
 
-##### Neural Neworks 
+#### Neural Neworks 
 
 Model | Accuracy | Notes
 :------------- | :-------------: | :-------------:
