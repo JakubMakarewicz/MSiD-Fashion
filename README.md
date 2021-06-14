@@ -80,6 +80,20 @@ flatten_4 (Flatten)| (None, 176400)| 0
 dense_8 (Dense)| (None, 512)| 90317312  
 dense_9 (Dense)| (None, 10)| 5130
 
+6(a variation on 4): Total params: 20,798,442
+
+Layer (type) |  Output Shape   |  Param #
+:------------- | :-------------:| :-------------:
+input_1 (InputLayer) | [(None, 28, 28, 1)] | 0
+conv2d (Conv2D) | (None, 28, 28, 200) | 2000
+conv2d_1 (Conv2D) | (None, 28, 28, 200) | 360200
+conv2d_2 (Conv2D) | (None, 28, 28, 200) | 360200
+max_pooling2d (MaxPooling2D) | (None, 14, 14, 200) | 0
+flatten (Flatten) | (None, 39200) | 0
+dense (Dense) | (None, 512) | 20070912
+dropout (Dropout) | (None, 512) | 0
+dense_1 (Dense) | (None, 10) | 5130
+
 ## Results
 I started off with finding the best gabor filter using naive bayes, here are the results:
 
@@ -111,16 +125,15 @@ Gabor | 0.8483/+0.001 | 0.6886/+0.125
 
 ##### Neural Neworks 
 
-Model | Accuracy
-:------------- | :-------------:
-1 | 0.8723
-2 | 0.9247
-3 | 0.9261
-4 | 0.9298
-5 | 0.9247
-
-##### Data Augmentation
-I have tried applying some gaussian noises onto the training data, however I have not been able to achieve any satisfying results, the accuracy of the models dropped to sub 90%.
+Model | Accuracy | Notes
+:------------- | :-------------: | :-------------:
+1 | 0.8723 | None
+2 | 0.9247 | None
+3 | 0.9261 | None
+4 | 0.9298 | None
+5 | 0.9247 | None
+6 | 0.9344 | Augmented data: random cropping and flipping + normalization
+6 | 0.9286 | Augmented data: random cropping, flipping and rotating + normalization
 
 ## Usage
 #### Required Modules
