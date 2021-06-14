@@ -132,8 +132,8 @@ Model | Accuracy | Notes
 3 | 0.9261 | None
 4 | 0.9298 | None
 5 | 0.9247 | None
-6 | 0.9344 | Augmented data: random cropping and flipping + normalization
-6 | 0.9286 | Augmented data: random cropping, flipping and rotating + normalization
+6 | 0.9344 | Augmented data: random cropping and flipping + normalization + early stopping
+6 | 0.9286 | Augmented data: random cropping, flipping and rotating + normalization + early stopping
 
 ## Usage
 #### Required Modules are listed in requirements.txt
