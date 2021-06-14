@@ -145,7 +145,7 @@ if __name__ == '__main__':
                     else:
                         model = NeuralNetwork.create_model2(int(input("convolutional layer size: ")),
                                                             int(input("how many convolutional layers?: ")))
-                    NeuralNetwork.train_model(model, x_train, y_train, x_test, y_test,
+                    NeuralNetwork.train_model(model, x_train[:50000], y_train[:50000], x_train[50000:], y_train[50000:],
                                               int(input("epochs: ")), input("destination path: "))
             elif option == 2:
                 model_path = input("Please input the path to the model: ")

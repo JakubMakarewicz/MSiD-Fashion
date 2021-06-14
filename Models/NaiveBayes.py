@@ -3,7 +3,7 @@ from sklearn.metrics import accuracy_score
 
 
 def get_classifier(x_train, y_train):
-    model = GaussianNB()
+    model = GaussianNB(priors=[0.1]*10)
     model.fit(x_train, y_train)
     return model
 

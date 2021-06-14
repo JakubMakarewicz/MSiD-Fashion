@@ -68,16 +68,20 @@ from Statistics import Statistics
 
 if __name__ == '__main__':
     # for fe in ["gabor"]:
-    # x_train, y_train = ReadData.load_mnist(path="Data")
-    # x_test, y_test = ReadData.load_mnist(path="Data", kind="t10k")
-    # x_trainh = FeatureExtractors.feature_extraction(x_train, 'prewitt_h')
+    x_train, y_train = ReadData.load_mnist(path="Data")
+    x_test, y_test = ReadData.load_mnist(path="Data", kind="t10k")
+    x_train = FeatureExtractors.feature_extraction(x_train, 'gabor')
     # x_trainv = FeatureExtractors.feature_extraction(x_train, 'prewitt_v')
-    # x_testh = FeatureExtractors.feature_extraction(x_test, 'prewitt_h')
+    x_test = FeatureExtractors.feature_extraction(x_test, 'gabor')
     # x_testv = FeatureExtractors.feature_extraction(x_test, 'prewitt_v')
     # x_trainh = np.reshape(np.array(x_trainh), (-1, 784))
     # x_trainv = np.reshape(np.array(x_trainv), (-1, 784))
     # x_testh = np.reshape(np.array(x_testh), (-1, 784))
     # x_testv = np.reshape(np.array(x_testv), (-1, 784))
+    x_train = np.reshape(np.array(x_train), (-1, 784))
+    x_test = np.reshape(np.array(x_test), (-1, 784))
+    model = NaiveBayes.get_classifier(x_train, y_train)
+    print(NaiveBayes.test_classifier(x_test, y_test, model))
     # x_train = x_trainv + x_trainh
     # x_test = x_testv + x_testh
     # # x_train = FeatureExtractors.apply_noise(x_train)
@@ -96,13 +100,12 @@ if __name__ == '__main__':
     # # x_test /= 2
     # # x_train = np.reshape(x_train, (-1, 28, 28, 1))
     # # model = NeuralNetwork.create_model1()
-    # # NeuralNetwork.train_model(model, x_train, y_train, x_test, y_test, 10, 'ModelNN6')
-    model = NeuralNetwork.create_model1()
-    model = NeuralNetwork.create_model2(40,3)
-    model = NeuralNetwork.create_model2(100,5)
-    model = NeuralNetwork.create_model2(200,3)
-    model = NeuralNetwork.create_model2(225,4)
-    # NeuralNetwork.train_model(model, x_train, y_train, x_test, y_test, 10, "ModelNN_prewitt")
+    # # NeuralNetwork.train_model(model, x_train[:50000], y_train[:50000], x_train[50000:], y_train[50000:], 10, 'ModelNN6')
+    # model = NeuralNetwork.create_model1()
+    # model = NeuralNetwork.create_model2(40,3)
+    # model = NeuralNetwork.create_model2(100,5)
+    # model = NeuralNetwork.create_model2(200,3)
+    # model = NeuralNetwork.create_model2(225,4)
     # with open(f'Models/TrainedModels/NeuralNetworks/ModelNN_prewitt.pkl', 'wb') as file:
     #     print(KNN.test_classifier(x_test, y_test, model))
     #     pickle.dump(model, file)
