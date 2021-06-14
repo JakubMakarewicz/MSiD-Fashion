@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from skimage import filters, feature
 from functools import partial
+import torch
+from skimage.util import random_noise
 
 kernel = [((3, 3), 5, 3.9269908169872414, 0.7853981633974483, 0.5, 0.4), None]
 
@@ -19,10 +21,21 @@ def initialize_kernel(reset, *params):
     else:
         kernel[0] = params
 
-
-def feature_extraction(images, method):
+def apply_noise(images):
+    images = np.array(images).astype('float32')
     ret_array = []
     for image in images:
-        image = np.reshape(image, (28, 28))
-        ret_array.append(feature_extractors[method](image))
+        image = torch.tensor(random_noise(image, mode='gaussian', mean=0, var=0.003, clip=True))
+        ret_array.append(np.array(image))
+    return ret_array
+
+
+def feature_extraction(images, method=None):
+    ret_array = []
+    for image in images:
+
+        image = np.reshape(np.array(image), (28, 28))
+        if method is not None:
+            image = feature_extractors[method](image)
+        ret_array.append(image)
     return ret_array

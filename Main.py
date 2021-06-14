@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+import tensorflow
 from tensorflow.python.keras.utils import np_utils
 
 from Data import ReadData
@@ -66,27 +67,49 @@ from Statistics import Statistics
 # filtered_images2.to_pickle("filtered_x_test.pkl")
 
 if __name__ == '__main__':
-    for fe in ["prewitt_h", "prewitt_v", "sobel", "canny", "gabor"]:
-        x_train, y_train = ReadData.load_mnist(path="Data")
-        x_test, y_test = ReadData.load_mnist(path="Data", kind="t10k")
-        x_train = FeatureExtractors.feature_extraction(x_train, fe)
-        x_test = FeatureExtractors.feature_extraction(x_test, fe)
-        x_train = np.reshape(x_train, (-1, 784))
-        x_test = np.reshape(x_test, (-1, 784))
-        # y_train = np_utils.to_categorical(y_train, 10)
-        # y_test = np_utils.to_categorical(y_test, 10)
-        # x_train = np.array(x_train).astype('float32')
-        # x_test = np.array(x_test).astype('float32')
-        # x_train /= 255
-        # x_test /= 255
-        # x_train += 1
-        # x_train /= 2
-        # x_test += 1
-        # x_test /= 2
-        # model = NeuralNetwork.create_model2(225, 4)
-        # NeuralNetwork.train_model(model, x_train, y_train, x_test, y_test, 10, 'ModelNN5')
-        model = NaiveBayes.get_classifier(x_train, y_train)
-        # Open a file and use dump()
-        with open(f'Models/TrainedModels/Bayes/Bayes_{fe}.pkl', 'wb') as file:
-            print(NaiveBayes.test_classifier(x_test, y_test, model))
-            pickle.dump(model, file)
+    # for fe in ["gabor"]:
+    # x_train, y_train = ReadData.load_mnist(path="Data")
+    # x_test, y_test = ReadData.load_mnist(path="Data", kind="t10k")
+    # x_trainh = FeatureExtractors.feature_extraction(x_train, 'prewitt_h')
+    # x_trainv = FeatureExtractors.feature_extraction(x_train, 'prewitt_v')
+    # x_testh = FeatureExtractors.feature_extraction(x_test, 'prewitt_h')
+    # x_testv = FeatureExtractors.feature_extraction(x_test, 'prewitt_v')
+    # x_trainh = np.reshape(np.array(x_trainh), (-1, 784))
+    # x_trainv = np.reshape(np.array(x_trainv), (-1, 784))
+    # x_testh = np.reshape(np.array(x_testh), (-1, 784))
+    # x_testv = np.reshape(np.array(x_testv), (-1, 784))
+    # x_train = x_trainv + x_trainh
+    # x_test = x_testv + x_testh
+    # # x_train = FeatureExtractors.apply_noise(x_train)
+    # # x_test = FeatureExtractors.apply_noise(x_test)
+    # # x_train += 1
+    # # x_train /= 2
+    # y_train = np_utils.to_categorical(y_train, 10)
+    # y_test = np_utils.to_categorical(y_test, 10)
+    # x_train = np.array(x_train).astype('float32')
+    # x_test = np.array(x_test).astype('float32')
+    # x_train /= 255
+    # x_train /= 255
+    # x_train = np.reshape(x_train, (-1, 28, 28, 1))
+    # x_test = np.reshape(x_test, (-1, 28, 28, 1))
+    # # x_test += 1
+    # # x_test /= 2
+    # # x_train = np.reshape(x_train, (-1, 28, 28, 1))
+    # # model = NeuralNetwork.create_model1()
+    # # NeuralNetwork.train_model(model, x_train, y_train, x_test, y_test, 10, 'ModelNN6')
+    model = NeuralNetwork.create_model1()
+    model = NeuralNetwork.create_model2(40,3)
+    model = NeuralNetwork.create_model2(100,5)
+    model = NeuralNetwork.create_model2(200,3)
+    model = NeuralNetwork.create_model2(225,4)
+    # NeuralNetwork.train_model(model, x_train, y_train, x_test, y_test, 10, "ModelNN_prewitt")
+    # with open(f'Models/TrainedModels/NeuralNetworks/ModelNN_prewitt.pkl', 'wb') as file:
+    #     print(KNN.test_classifier(x_test, y_test, model))
+    #     pickle.dump(model, file)
+    # for nn in ["I:/PWR\Semestr 4/Metody Systemowe i Decyzyjne/Laborki/MSiD-Fashion/Models/TrainedModels/NeuralNetworks/ModelNN",
+    #            "I:/PWR/Semestr 4/Metody Systemowe i Decyzyjne/Laborki/MSiD-Fashion/Models/TrainedModels/NeuralNetworks/ModelNN2",
+    #            "I:/PWR/Semestr 4/Metody Systemowe i Decyzyjne/Laborki/MSiD-Fashion/Models/TrainedModels/NeuralNetworks/ModelNN3",
+    #            "I:/PWR/Semestr 4/Metody Systemowe i Decyzyjne/Laborki/MSiD-Fashion/Models/TrainedModels/NeuralNetworks/ModelNN4",
+    #            "I:/PWR/Semestr 4/Metody Systemowe i Decyzyjne/Laborki/MSiD-Fashion/Models/TrainedModels/NeuralNetworks/ModelNN5",]:
+    # model = tensorflow.keras.models.load_model("ModelNN6" + '.h5')
+    # print(f"accuracy of ModelNN6 for None: {NeuralNetwork.test_model(model, x_test, y_test)}")

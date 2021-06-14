@@ -21,7 +21,7 @@ def create_model1():
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])
-
+    print(model.summary())
     return model
 
 
@@ -32,22 +32,22 @@ def create_model2(conv_size, conv_depth):
     for _ in range(conv_depth):
         x = layers.Conv2D(filters=conv_size, kernel_size=3, padding='same', activation='relu')(x)
     x = layers.Flatten()(x)
-    x = layers.Dense(64, 'relu')(x)
+    x = layers.Dense(512, 'relu')(x)
     x = layers.Dense(10, 'sigmoid')(x)
     model = models.Model(inputs=input, outputs=x)
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])
+    print(model.summary())
     return model
 
 
 def train_model(model, x_train, y_train, x_val, y_val, epochs, destination_file):
     model.fit(x_train, y_train, epochs=epochs, verbose=1, validation_data=(x_val, y_val),
-              callbacks=tf.keras.callbacks.ReduceLROnPlateau(patience=2))
+              callbacks=[tf.keras.callbacks.ReduceLROnPlateau(monitor='loss', patience=2)])
     model.save(destination_file + '.h5')
 
 
 def test_model(model, x_test, y_test):
-    y_pred = model.predict(x_test)
-    accuracy = accuracy_score(y_test, y_pred)
+    accuracy = model.evaluate(x_test, y_test, verbose=1)[1]
     return accuracy
