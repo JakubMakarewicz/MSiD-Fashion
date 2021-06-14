@@ -31,8 +31,10 @@ def create_model2(conv_size, conv_depth):
     x = input
     for _ in range(conv_depth):
         x = layers.Conv2D(filters=conv_size, kernel_size=3, padding='same', activation='relu')(x)
+    x = layers.MaxPool2D((2,2))(x)
     x = layers.Flatten()(x)
     x = layers.Dense(512, 'relu')(x)
+    x = layers.Dropout(0.5)(x)
     x = layers.Dense(10, 'sigmoid')(x)
     model = models.Model(inputs=input, outputs=x)
     model.compile(loss='categorical_crossentropy',
@@ -44,7 +46,8 @@ def create_model2(conv_size, conv_depth):
 
 def train_model(model, x_train, y_train, x_val, y_val, epochs, destination_file):
     model.fit(x_train, y_train, epochs=epochs, verbose=1, validation_data=(x_val, y_val),
-              callbacks=[tf.keras.callbacks.ReduceLROnPlateau(monitor='loss', patience=2)])
+              callbacks=[tf.keras.callbacks.ReduceLROnPlateau(monitor='loss', patience=3),
+                         tf.keras.callbacks.EarlyStopping(patience=5)])
     model.save(destination_file + '.h5')
 
 

@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from PIL import Image
 from skimage import filters, feature
 from functools import partial
 import torch
@@ -21,12 +22,15 @@ def initialize_kernel(reset, *params):
     else:
         kernel[0] = params
 
-def apply_noise(images):
+
+def apply_augmentation(images, augmentation):
     images = np.array(images).astype('float32')
     ret_array = []
     for image in images:
-        image = torch.tensor(random_noise(image, mode='gaussian', mean=0, var=0.003, clip=True))
-        ret_array.append(np.array(image))
+        image = np.reshape(np.array(image), (28, 28))
+        image_ = Image.fromarray(image)
+        image_ = augmentation(image_)
+        ret_array.append(np.reshape(np.array(image_), (28, 28)))
     return ret_array
 
 
