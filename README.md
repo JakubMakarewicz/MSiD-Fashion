@@ -123,5 +123,8 @@ Model | Accuracy
 I have tried applying some gaussian noises onto the training data, however I have not been able to achieve any satisfying results, the accuracy of the models dropped to sub 90%.
 
 ## Usage
+#### Required Modules
+in requirements.txt
+
 To launch the app, just run app.py. However may have some bugs. 
 
